@@ -15,6 +15,7 @@ angular.module('app.controllers', []).controller('ShipwreckListController', func
   $scope.shipwreck = new Shipwreck();  //create new shipwreck instance. Properties will be set via ng-model on UI
 
   $scope.addShipwreck = function() { //create a new shipwreck. Issues a POST to /api/v1/shipwrecks
+	debugger;
     $scope.shipwreck.$save(function() {
       $state.go('shipwrecks'); // on success go back to the list i.e. shipwrecks state.
     });

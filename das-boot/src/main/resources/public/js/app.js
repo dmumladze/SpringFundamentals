@@ -24,7 +24,7 @@
 		}
 	}
 
-	app.config(function($stateProvider, $urlRouterProvider, $controllerProvider){
+	app.config(function($httpProvider, $stateProvider, $urlRouterProvider, $controllerProvider) {
 		var origController = app.controller
 		app.controller = function (name, constructor){
 			$controllerProvider.register(name, constructor);
@@ -34,7 +34,7 @@
 		var viewsPrefix = 'views/';
 
 		// For any unmatched url, send to /
-		$urlRouterProvider.otherwise("/")
+		$urlRouterProvider.otherwise("/");
 
 		$stateProvider
 			// you can set this to no template if you just want to use the html in the page
@@ -61,7 +61,7 @@
 	        url:'/shipwrecks/:id/edit',
 	        templateUrl: viewsPrefix + 'shipwreck-edit.html',
 	        controller:'ShipwreckEditController'
-	    })
+	    });	
 	})
 	.directive('updateTitle', ['$rootScope', '$timeout',
 		function($rootScope, $timeout) {
@@ -79,5 +79,16 @@
 				}
 			};
 		}
-	]);
+	]).directive('filesModel', function(){
+		  return {
+		    controller: function($parse, $element, $attrs, $scope){
+		      var exp = $parse($attrs.filesModel);
+		
+		      $element.on('change', function(){
+		        exp.assign($scope, this.files);
+		        $scope.$apply();
+		      });
+		    }
+		  };
+	});
 }());

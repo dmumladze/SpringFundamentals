@@ -8,7 +8,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.boot.model.Shipwreck;
 import com.boot.repository.ShipwreckRepository;
@@ -25,8 +27,12 @@ public class ShiprwreckController {
 		return this.shipwreckRepository.findAll();
 	}
 	
+	/* uploading files
+	 * https://spring.io/guides/gs/uploading-files/
+	 */
 	@RequestMapping(value = "shipwrecks", method = RequestMethod.POST)
-	public Shipwreck create(@RequestBody Shipwreck wreck) {
+	public Shipwreck create(@RequestPart Shipwreck wreck, @RequestPart MultipartFile image) {
+		System.out.print(image.getOriginalFilename());
 		return this.shipwreckRepository.saveAndFlush(wreck);
 	}
 	
