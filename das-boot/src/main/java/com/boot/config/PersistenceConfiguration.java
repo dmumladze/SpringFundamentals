@@ -26,7 +26,7 @@ public class PersistenceConfiguration {
 	
 	@Bean
 	@Primary
-	@ConfigurationProperties(prefix = "spring.datasource")
+	@ConfigurationProperties(prefix = "spring.datasource") 
 	public DataSource dataSource() {
 		return springDataSourceProperties().initializeDataSourceBuilder().build();				
 	}
